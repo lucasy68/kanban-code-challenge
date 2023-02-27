@@ -94,6 +94,10 @@ function App() {
             alignItems: "center",
             overflowY: "auto",
           }}
+          onDrop={handleOnDrop}
+          onDragOver={(e) => {
+            e.preventDefault();
+          }}
         >
           <Chip
             label="Todo"
@@ -134,12 +138,20 @@ function App() {
             ))}
         </Card>
         <Card
+          id="blocked"
           sx={{
             width: "20%",
             height: "80%",
+            backgroundColor: "rgba(200, 207, 207, 0.408)",
+            borderRadius: "10px",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            overflowY: "auto",
+          }}
+          onDrop={handleOnDrop}
+          onDragOver={(e) => {
+            e.preventDefault();
           }}
         >
           <Chip
@@ -147,21 +159,11 @@ function App() {
             color="warning"
             sx={{ fontSize: "20px", padding: "10px", margin: "15px 0" }}
           />
-        </Card>
-        <Card
-          sx={{
-            width: "20%",
-            height: "80%",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Chip
-            label="Completed"
-            color="success"
-            sx={{ fontSize: "20px", padding: "10px", margin: "15px 0" }}
-          />
+
+          {blocked.length > 0 &&
+            blocked.map(({ id, item }) => (
+              <CardItem key={id} item={[id, item]} category="blocked" />
+            ))}
         </Card>
       </Box>
     </div>

@@ -22,7 +22,6 @@ const CardItem = ({ item, category }) => {
     let idToRemove = tempData[1][0];
     let item = tempData[1][1];
     if (category !== categoryToRemove) {
-      console.log("dddd");
       switch (category) {
         case "todo":
           setTodo([...todo, { id: idToRemove, item }]);
