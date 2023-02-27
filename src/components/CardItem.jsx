@@ -1,7 +1,7 @@
-import { Card ,Typography} from "@mui/material";
+import { Card, Typography } from "@mui/material";
 import React from "react";
 
-const CardsItem = () => {
+const CardItem = ({ key, item }) => {
   return (
     <Card
       sx={{
@@ -13,9 +13,9 @@ const CardsItem = () => {
         marginBottom: "15px",
       }}
     >
-      <Typography sx={{ justifyContent: "center" }}>www</Typography>
+      <Typography sx={{ justifyContent: "center" }}>{item[1]}</Typography>
     </Card>
   );
 };
 
-export default CardsItem;
+export default CardItem;

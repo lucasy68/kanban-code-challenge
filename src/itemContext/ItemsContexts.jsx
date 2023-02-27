@@ -9,7 +9,7 @@ const MOCK_UP_DATA = [
   { id: 6, item: "Task 6" },
   { id: 7, item: "Task 7" },
 ];
-export const ItemContext = createContext({
+export const ItemsContext = createContext({
   todo: null,
   setTodo: () => null,
   progress: null,
@@ -20,7 +20,7 @@ export const ItemContext = createContext({
   setCompleted: () => null,
 });
 
-export const ItemProvider = ({ children }) => {
+export const ItemsProvider = ({ children }) => {
   const [todo, setTodo] = useState(MOCK_UP_DATA);
   const [progress, setProgress] = useState(null);
   const [blocked, setBlocked] = useState(null);
@@ -35,5 +35,7 @@ export const ItemProvider = ({ children }) => {
     completed,
     setCompleted,
   };
-  return <ItemContext.Provider value={value}>{children}</ItemContext.Provider>;
+  return (
+    <ItemsContext.Provider value={value}>{children}</ItemsContext.Provider>
+  );
 };

@@ -1,7 +1,20 @@
 import "./App.scss";
 import { Typography, Box, Card, Chip } from "@mui/material";
-import CardsItem from "./components/CardsItem";
+import CardItem from "./components/CardItem";
+import { ItemsContext } from "./itemContext/ItemsContexts";
+import { useContext } from "react";
 function App() {
+  const {
+    todo,
+    setTodo,
+    progress,
+    setProgress,
+    blocked,
+    setBlocked,
+    completed,
+    setCompleted,
+  } = useContext(ItemsContext);
+  console.log(todo);
   return (
     <div className="App">
       <Typography variant="h3" mt={20}>
@@ -20,9 +33,12 @@ function App() {
           sx={{
             width: "20%",
             height: "80%",
+            backgroundColor: "rgba(200, 207, 207, 0.408)",
+            borderRadius: "10px",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            overflowY: "auto",
           }}
         >
           <Chip
@@ -30,7 +46,10 @@ function App() {
             color="primary"
             sx={{ fontSize: "20px", padding: "10px", margin: "15px 0" }}
           />
-          <CardsItem />
+          {todo.length > 0 &&
+            todo.map(({ id, item }) => (
+              <CardItem key={id} item={[id, item]} category="todo" />
+            ))}
         </Card>
         <Card
           sx={{
