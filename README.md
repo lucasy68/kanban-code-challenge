@@ -1,8 +1,9 @@
 Run Project
 
 1. git clone https://github.com/lucasy68/kanban-code-challenge.git
-2. npm i
-3. npm start
+2. cd kanban-code-challenge
+3. npm i
+4. npm start
 
 Functionalities:
 
