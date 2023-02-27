@@ -165,6 +165,34 @@ function App() {
               <CardItem key={id} item={[id, item]} category="blocked" />
             ))}
         </Card>
+        <Card
+          id="completed"
+          sx={{
+            width: "20%",
+            height: "80%",
+            backgroundColor: "rgba(200, 207, 207, 0.408)",
+            borderRadius: "10px",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            overflowY: "auto",
+          }}
+          onDrop={handleOnDrop}
+          onDragOver={(e) => {
+            e.preventDefault();
+          }}
+        >
+          <Chip
+            label="Completed"
+            color="success"
+            sx={{ fontSize: "20px", padding: "10px", margin: "15px 0" }}
+          />
+
+          {completed.length > 0 &&
+            completed.map(({ id, item }) => (
+              <CardItem key={id} item={[id, item]} category="completed" />
+            ))}
+        </Card>
       </Box>
     </div>
   );
