@@ -22,9 +22,9 @@ export const ItemsContext = createContext({
 
 export const ItemsProvider = ({ children }) => {
   const [todo, setTodo] = useState(MOCK_UP_DATA);
-  const [progress, setProgress] = useState(null);
-  const [blocked, setBlocked] = useState(null);
-  const [completed, setCompleted] = useState(null);
+  const [progress, setProgress] = useState([]);
+  const [blocked, setBlocked] = useState([]);
+  const [completed, setCompleted] = useState([]);
   const value = {
     todo,
     setTodo,

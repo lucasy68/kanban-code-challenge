@@ -14,7 +14,60 @@ function App() {
     completed,
     setCompleted,
   } = useContext(ItemsContext);
-  console.log(todo);
+
+  const handleOnDrop = (e) => {
+    let tempData = JSON.parse(e.dataTransfer.getData("temp"));
+    console.log(tempData);
+    let categoryToRemove = tempData[0];
+    let idToRemove = tempData[1][0];
+    let item = tempData[1][1];
+    if (e.target.id && e.target.id !== categoryToRemove) {
+      switch (e.target.id) {
+        case "todo":
+          setTodo([...todo, { id: idToRemove, item }]);
+          break;
+        case "progress":
+          setProgress([...progress, { id: idToRemove, item }]);
+          break;
+        case "blocked":
+          setBlocked([...blocked, { id: idToRemove, item }]);
+          break;
+        case "completed":
+          setCompleted([...completed, { id: idToRemove, item }]);
+          break;
+        default:
+      }
+
+      let tempArr = {};
+      let newArr = {};
+
+      if (e.target.id && e.target.id !== categoryToRemove) {
+        switch (categoryToRemove) {
+          case "todo":
+            tempArr = todo;
+            newArr = tempArr.filter((item) => item.id !== idToRemove);
+            setTodo(newArr);
+            break;
+          case "progress":
+            tempArr = progress;
+            newArr = tempArr.filter((item) => item.id !== idToRemove);
+            setProgress(newArr);
+            break;
+          case "blocked":
+            tempArr = blocked;
+            newArr = tempArr.filter((item) => item.id !== idToRemove);
+            setBlocked(newArr);
+            break;
+          case "completed":
+            tempArr = completed;
+            newArr = tempArr.filter((item) => item.id !== idToRemove);
+            setCompleted(newArr);
+            break;
+          default:
+        }
+      }
+    }
+  };
   return (
     <div className="App">
       <Typography variant="h3" mt={20}>
@@ -30,6 +83,7 @@ function App() {
         mt={5}
       >
         <Card
+          id="todo"
           sx={{
             width: "20%",
             height: "80%",
@@ -51,13 +105,22 @@ function App() {
               <CardItem key={id} item={[id, item]} category="todo" />
             ))}
         </Card>
+
         <Card
+          id="progress"
           sx={{
             width: "20%",
             height: "80%",
+            backgroundColor: "rgba(200, 207, 207, 0.408)",
+            borderRadius: "10px",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            overflowY: "auto",
+          }}
+          onDrop={handleOnDrop}
+          onDragOver={(e) => {
+            e.preventDefault();
           }}
         >
           <Chip
@@ -65,6 +128,10 @@ function App() {
             color="secondary"
             sx={{ fontSize: "20px", padding: "10px", margin: "15px 0" }}
           />
+          {progress.length > 0 &&
+            progress.map(({ id, item }) => (
+              <CardItem key={id} item={[id, item]} category="progress" />
+            ))}
         </Card>
         <Card
           sx={{
